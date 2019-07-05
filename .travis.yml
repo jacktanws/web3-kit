@@ -4,7 +4,7 @@ node_js:
   - "10"
 
 env:
-  - CXX=g++-4.8 QTUM_RPC_ADDRESS='http://bodhi:bodhi@localhost:13889' SENDER_ADDRESS='qMZK8FNPRm54jvTLAGEs1biTCgyCkcsmna' WALLET_PASSPHRASE='bodhi'
+  - CXX=g++-4.8 HTMLCOIN_RPC_ADDRESS='http://htmlcoin:htmlcoin@localhost:14889' SENDER_ADDRESS='hMZK8FNPRm54jvTLAGEs1biTCgyCkcsmna' WALLET_PASSPHRASE='htmlcoin'
 
 addons:
   apt:
@@ -19,17 +19,17 @@ cache:
     - "node_modules"
 
 before_install:
-  - wget https://github.com/qtumproject/qtum/releases/download/mainnet-ignition-v0.16.1/qtum-0.16.1-x86_64-linux-gnu.tar.gz
+  - wget https://github.com/HTMLCOIN/HTMLCOIN/releases/download/v2.3.2/htmlcoin-2.3.2-linux64.tar.gz
 
 install:
-  - tar -xvzf qtum-0.16.1-x86_64-linux-gnu.tar.gz
+  - tar -xvzf htmlcoin-2.3.2-linux64.tar.gz
   - npm install
-  - mkdir test/data/.qtum
+  - mkdir test/data/.htmlcoin
 
 script:
-  - ./qtum-0.16.1/bin/qtumd -testnet -logevents -rpcuser=bodhi -rpcpassword=bodhi -datadir=./test/data/.qtum & 
+  - ./htmlcoin-2.3.2/bin/htmlcoind -testnet -logevents -rpcuser=htmlcoin -rpcpassword=htmlcoin -datadir=./test/data/.htmlcoin & 
   - sleep 10
   - npm run test:cleanenv
 
 after_failure:
-  - cat /home/travis/build/bodhiproject/qweb3.js/test/data/.qtum/testnet3/debug.log
+  - cat ~/hweb3.js/test/data/.htmlcoin/testnet3/debug.log
