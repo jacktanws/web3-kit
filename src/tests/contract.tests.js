@@ -4,7 +4,7 @@ const Web3Utils = require('web3-utils');
 const BN = require('bn.js');
 const chai = require('chai');
 
-const { getQtumRPCAddress } = require('../../test/utils');
+const { getHtmlcoinRPCAddress } = require('../../test/utils');
 const ContractMetadata = require('../../test/data/contract_metadata');
 const Contract = require('../contract');
 const Decoder = require('../formatters/decoder');
@@ -17,7 +17,7 @@ describe('Contract', () => {
   describe('constructor', () => {
     it('inits all the values', async () => {
       contract = new Contract(
-        getQtumRPCAddress(),
+        getHtmlcoinRPCAddress(),
         ContractMetadata.EventFactory.address,
         ContractMetadata.EventFactory.abi,
       );
@@ -27,7 +27,7 @@ describe('Contract', () => {
     });
 
     it('removes the hex prefix from the address', async () => {
-      contract = new Contract(getQtumRPCAddress(), '0x1234567890', ContractMetadata.EventFactory.abi);
+      contract = new Contract(getHtmlcoinRPCAddress(), '0x1234567890', ContractMetadata.EventFactory.abi);
       assert.equal(contract.address, '1234567890');
     });
   });
@@ -67,7 +67,7 @@ describe('Contract', () => {
     it('sends a transaction', async () => {
       const res = {
         txid: '685f23b364242e4954a2a62a42c3632762d19f37e24c34edc495cc0e117a9112',
-        sender: 'qKjn4fStBaAtwGiwueJf9qFxgpbAvf1xAy',
+        sender: 'hKjn4fStBaAtwGiwueJf9qFxgpbAvf1xAy',
         hash160: '17e7888aa7412a735f336d2f6d784caefabb6fa3',
       };
 
@@ -79,7 +79,7 @@ describe('Contract', () => {
     it('returns the args object with the sent params', async () => {
       const res = {
         txid: '60c14ddc003a84a0947db1ac9cbfb01f1d3253b7948dc95343d7dd5a9d5900e9',
-        sender: 'qUNeKdqh269AwJWxDFnxUAqKSJ9deSUsgF',
+        sender: 'hUNeKdqh269AwJWxDFnxUAqKSJ9deSUsgF',
         hash160: '76a177b79b8ef37437dce27a38fa2653eb6d8241',
         args: {
           contractAddress: 'f6177bc9812eeb531907621af6641a41133dea9e',
