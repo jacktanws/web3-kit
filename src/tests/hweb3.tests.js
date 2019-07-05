@@ -4,29 +4,29 @@ const chai = require('chai');
 const path = require('path');
 const bs58 = require('bs58');
 
-const Qweb3 = require('../qweb3');
+const Hweb3 = require('../hweb3');
 const Decoder = require('../formatters/decoder');
 const ContractMetadata = require('../../test/data/contract_metadata');
 const qAssert = require('../../test/utils/qassert');
-const { getQtumRPCAddress, getDefaultQtumAddress, getWalletPassphrase, isWalletEncrypted } = require('../../test/utils');
+const { getHtmlcoinRPCAddress, getDefaultHtmlcoinAddress, getWalletPassphrase, isWalletEncrypted } = require('../../test/utils');
 
 const { assert } = chai;
 
-console.log(`Your Qtum RPC address is ${getQtumRPCAddress()}`);
-console.log(`Your Default Qtum address is ${getDefaultQtumAddress()}`);
+console.log(`Your Htmlcoin RPC address is ${getHtmlcoinRPCAddress()}`);
+console.log(`Your Default Htmlcoin address is ${getDefaultHtmlcoinAddress()}`);
 
-describe('Qweb3', () => {
-  const QTUM_ADDRESS = getDefaultQtumAddress();
-  let qweb3;
+describe('Hweb3', () => {
+  const HTMLCOIN_ADDRESS = getDefaultHtmlcoinAddress();
+  let hweb3;
 
   beforeEach(() => {
-    qweb3 = new Qweb3(getQtumRPCAddress());
+    hweb3 = new Hweb3(getHtmlcoinRPCAddress());
   });
 
   /** ******** MISC ********* */
   describe('isConnected()', () => {
     it('returns true when connected', async () => {
-      assert.isTrue(await qweb3.isConnected());
+      assert.isTrue(await hweb3.isConnected());
     });
   });
 
@@ -161,7 +161,7 @@ describe('Qweb3', () => {
 
   describe('listContracts()', () => {
     it('returns the array of deployed contracts', async () => {
-      const res = await qweb3.listContracts();
+      const res = await hweb3.listContracts();
       assert.isDefined(res);
       assert.isObject(res);
     });
@@ -228,38 +228,38 @@ describe('Qweb3', () => {
     });
 
     it('throws if fromBlock is not a number', async () => {
-      assert.throws(() => qweb3.searchLogs(
+      assert.throws(() => hweb3.searchLogs(
         'a', 50100, [],
         ['c46e722c8158268af789d6a68206785f8d497869da236f87c2014c1c08fd3dec'], ContractMetadata, true,
       ), Error);
     });
 
     it('throws if toBlock is not a number', async () => {
-      assert.throws(() => qweb3.searchLogs(
+      assert.throws(() => hweb3.searchLogs(
         50000, 'a', [],
         ['c46e722c8158268af789d6a68206785f8d497869da236f87c2014c1c08fd3dec'], ContractMetadata, true,
       ), Error);
     });
 
     it('throws if addresses is not a string or array', async () => {
-      assert.throws(() => qweb3.searchLogs(
+      assert.throws(() => hweb3.searchLogs(
         50000, 50100, undefined,
         ['c46e722c8158268af789d6a68206785f8d497869da236f87c2014c1c08fd3dec'], ContractMetadata, true,
       ), Error);
 
-      assert.throws(() => qweb3.searchLogs(
+      assert.throws(() => hweb3.searchLogs(
         50000, 50100, 1,
         ['c46e722c8158268af789d6a68206785f8d497869da236f87c2014c1c08fd3dec'], ContractMetadata, true,
       ), Error);
     });
 
     it('throws if topics is not a string or array', async () => {
-      assert.throws(() => qweb3.searchLogs(
+      assert.throws(() => hweb3.searchLogs(
         50000, 50100, undefined,
         ['c46e722c8158268af789d6a68206785f8d497869da236f87c2014c1c08fd3dec'], ContractMetadata, true,
       ), Error);
 
-      assert.throws(() => qweb3.searchLogs(
+      assert.throws(() => hweb3.searchLogs(
         50000, 50100, 1,
         ['c46e722c8158268af789d6a68206785f8d497869da236f87c2014c1c08fd3dec'], ContractMetadata, true,
       ), Error);
@@ -269,7 +269,7 @@ describe('Qweb3', () => {
   /** ******** NETWORK ********* */
   describe('getPeerInfo()', () => {
     it('returns the Node info', async () => {
-      const res = await qweb3.getPeerInfo();
+      const res = await hweb3.getPeerInfo();
       assert.isDefined(res);
       assert.isArray(res);
       _.forEach(res, (nodeInfo) => {
@@ -282,8 +282,8 @@ describe('Qweb3', () => {
   /** ******** RAW TRANSACTIONS ********* */
   describe('getHexAddress()', () => {
     it('returns the hex address', async () => {
-      const hexDecodedAddress = bs58.decode(QTUM_ADDRESS).toString('hex');
-      const hexadecimalAddress = await qweb3.getHexAddress(QTUM_ADDRESS);
+      const hexDecodedAddress = bs58.decode(HTMLCOIN_ADDRESS).toString('hex');
+      const hexadecimalAddress = await hweb3.getHexAddress(HTMLCOIN_ADDRESS);
       assert.isString(hexadecimalAddress);
       assert.lengthOf(hexadecimalAddress, 40);
       assert.include(hexDecodedAddress, hexadecimalAddress);
@@ -291,21 +291,21 @@ describe('Qweb3', () => {
   });
 
   describe('fromHexAddress()', () => {
-    it('returns the qtum address', async () => {
-      const qtumAddress = await qweb3.fromHexAddress('17e7888aa7412a735f336d2f6d784caefabb6fa3');
-      assert.isString(qtumAddress);
-      assert.lengthOf(qtumAddress, 34);
+    it('returns the htmlcoin address', async () => {
+      const htmlcoinAddress = await hweb3.fromHexAddress('17e7888aa7412a735f336d2f6d784caefabb6fa3');
+      assert.isString(htmlcoinAddress);
+      assert.lengthOf(htmlcoinAddress, 34);
     });
   });
 
   /** ******** UTIL ********* */
   describe('validateAddress()', () => {
     it('returns an object validating the address', async () => {
-      let res = await qweb3.validateAddress(QTUM_ADDRESS);
+      let res = await hweb3.validateAddress(HTMLCOIN_ADDRESS);
       assert.isDefined(res);
       assert.isDefined(res.isvalid);
 
-      res = await qweb3.validateAddress('helloworld');
+      res = await hweb3.validateAddress('helloworld');
       assert.isDefined(res);
       assert.isDefined(res.isvalid);
     });
@@ -314,19 +314,19 @@ describe('Qweb3', () => {
   /** ******** WALLET ********* */
   describe('dumpPrivateKey()', () => {
     it('returns the private key', async () => {
-      const address = await qweb3.getAccountAddress('');
+      const address = await hweb3.getAccountAddress('');
       if (await isWalletEncrypted(qweb3)) {
-        await qweb3.walletPassphrase(getWalletPassphrase(), 3600);
+        await hweb3.walletPassphrase(getWalletPassphrase(), 3600);
         assert.isTrue((await qweb3.getWalletInfo()).unlocked_until > 0);
 
-        const res = await qweb3.dumpPrivateKey(address);
+        const res = await hweb3.dumpPrivateKey(address);
         assert.isDefined(res);
         assert.isString(res);
 
-        await qweb3.walletLock();
-        assert.isTrue((await qweb3.getWalletInfo()).unlocked_until === 0);
+        await hweb3.walletLock();
+        assert.isTrue((await hweb3.getWalletInfo()).unlocked_until === 0);
       } else {
-        const res = await qweb3.dumpPrivateKey(address);
+        const res = await hweb3.dumpPrivateKey(address);
         assert.isDefined(res);
         assert.isString(res);
       }
@@ -335,19 +335,19 @@ describe('Qweb3', () => {
 
   describe('getAccountAddress()', () => {
     it('returns the account address', async () => {
-      const res = await qweb3.getAccountAddress('');
+      const res = await hweb3.getAccountAddress('');
       assert.isDefined(res);
       assert.isString(res);
-      assert.isTrue(res.startsWith('q') || res.startsWith('Q'));
+      assert.isTrue(res.startsWith('h') || res.startsWith('H'));
     });
   });
 
   describe('getAddressesByAccount()', () => {
     it('returns the account address array', async () => {
-      const res = await qweb3.getAddressesByAccount('');
+      const res = await hweb3.getAddressesByAccount('');
       assert.isDefined(res);
       assert.isArray(res);
-      assert.isTrue(_.every(res, item => item.startsWith('q') || item.startsWith('Q')));
+      assert.isTrue(_.every(res, item => item.startsWith('h') || item.startsWith('H')));
     });
   });
 
@@ -377,7 +377,7 @@ describe('Qweb3', () => {
           },
           {
             account: '',
-            address: 'qKjn4fStBaAtwGiwueJf9qFxgpbAvf1xAy',
+            address: 'hKjn4fStBaAtwGiwueJf9qFxgpbAvf1xAy',
             category: 'send',
             amount: -0.23241276,
             label: 'main',
@@ -387,7 +387,7 @@ describe('Qweb3', () => {
           },
           {
             account: 'main',
-            address: 'qKjn4fStBaAtwGiwueJf9qFxgpbAvf1xAy',
+            address: 'hKjn4fStBaAtwGiwueJf9qFxgpbAvf1xAy',
             category: 'receive',
             amount: 0.23241276,
             label: 'main',
@@ -414,7 +414,7 @@ describe('Qweb3', () => {
 
   describe('getWalletInfo()', () => {
     it('returns the wallet info', async () => {
-      const res = await qweb3.getWalletInfo();
+      const res = await hweb3.getWalletInfo();
       assert.isDefined(res);
       assert.isDefined(res.walletversion);
       assert.isDefined(res.balance);
@@ -431,7 +431,7 @@ describe('Qweb3', () => {
 
   describe('getUnconfirmedBalance()', () => {
     it('returns the unconfirmed balance', async () => {
-      const res = await qweb3.getUnconfirmedBalance();
+      const res = await hweb3.getUnconfirmedBalance();
       assert.isDefined(res);
       assert.isNumber(res);
     });
@@ -439,7 +439,7 @@ describe('Qweb3', () => {
 
   describe('listAddressGroupings()', () => {
     it('returns an array of address groupings', async () => {
-      const res = await qweb3.listAddressGroupings();
+      const res = await hweb3.listAddressGroupings();
       assert.isDefined(res);
       assert.isArray(res);
 
@@ -449,7 +449,7 @@ describe('Qweb3', () => {
 
         if (!_.isEmpty(innerArr)) {
           const item = innerArr[0];
-          qAssert.isQtumAddress(item[0]);
+          qAssert.isHtmlcoinAddress(item[0]);
           assert.isTrue(_.isNumber(item[1]));
         }
       }
@@ -458,7 +458,7 @@ describe('Qweb3', () => {
 
   describe('listLockUnspent()', () => {
     it('returns an array of unspendable outputs', async () => {
-      const res = await qweb3.listLockUnspent();
+      const res = await hweb3.listLockUnspent();
       assert.isDefined(res);
       assert.isArray(res);
     });
@@ -466,7 +466,7 @@ describe('Qweb3', () => {
 
   describe('listUnspent()', () => {
     it('returns an unspent output array', async () => {
-      const res = await qweb3.listUnspent();
+      const res = await hweb3.listUnspent();
       assert.isDefined(res);
       assert.isArray(res);
     });
@@ -474,12 +474,12 @@ describe('Qweb3', () => {
 
   describe('walletLock()', () => {
     it('locks the encrypted wallet', async () => {
-      if (await isWalletEncrypted(qweb3)) {
-        await qweb3.walletPassphrase(getWalletPassphrase(), 3600, true);
-        assert.isTrue((await qweb3.getWalletInfo()).unlocked_until > 0);
+      if (await isWalletEncrypted(hweb3)) {
+        await hweb3.walletPassphrase(getWalletPassphrase(), 3600, true);
+        assert.isTrue((await hweb3.getWalletInfo()).unlocked_until > 0);
 
-        await qweb3.walletLock();
-        assert.isTrue((await qweb3.getWalletInfo()).unlocked_until === 0);
+        await hweb3.walletLock();
+        assert.isTrue((await hweb3.getWalletInfo()).unlocked_until === 0);
       } else {
         assert.isTrue(true);
       }
@@ -488,12 +488,12 @@ describe('Qweb3', () => {
 
   describe('walletPassphrase()', () => {
     it('unlocks the encrypted wallet', async () => {
-      if (await isWalletEncrypted(qweb3)) {
-        await qweb3.walletLock();
-        assert.isTrue((await qweb3.getWalletInfo()).unlocked_until === 0);
+      if (await isWalletEncrypted(hweb3)) {
+        await hweb3.walletLock();
+        assert.isTrue((await hweb3.getWalletInfo()).unlocked_until === 0);
 
-        await qweb3.walletPassphrase(getWalletPassphrase(), 3600, true);
-        assert.isTrue((await qweb3.getWalletInfo()).unlocked_until > 0);
+        await hweb3.walletPassphrase(getWalletPassphrase(), 3600, true);
+        assert.isTrue((await hweb3.getWalletInfo()).unlocked_until > 0);
       } else {
         assert.isTrue(true);
       }
@@ -504,17 +504,17 @@ describe('Qweb3', () => {
   // eslint-disable-next-line no-unused-expressions
   !_.includes(process.argv, '--cleanenv') ? describe.skip : describe('cleanEnv tests', () => {
     describe('getNewAddress()', () => {
-      it('returns a new qtum address', async () => {
-        const res = await qweb3.getNewAddress('');
+      it('returns a new htmlcoin address', async () => {
+        const res = await hweb3.getNewAddress('');
         assert.isDefined(res);
         assert.isString(res);
-        assert.isTrue(res.startsWith('q') || res.startsWith('Q'));
+        assert.isTrue(res.startsWith('h') || res.startsWith('H'));
       });
     });
 
     describe('backupWallet()', () => {
       it('backup the wallet', async () => {
-        const res = await qweb3.backupWallet(path.join(__dirname, '../../test/data/backup.dat'));
+        const res = await hweb3.backupWallet(path.join(__dirname, '../../test/data/backup.dat'));
         assert.notTypeOf(res, 'Error');
       });
     });
@@ -522,7 +522,7 @@ describe('Qweb3', () => {
     describe('importWallet()', () => {
       it('throw an error if importing a non-existent file', async () => {
         try {
-          await qweb3.importWallet(path.join(__dirname, '../../test/data/backup.dat'));
+          await hweb3.importWallet(path.join(__dirname, '../../test/data/backup.dat'));
         } catch (err) {
           assert.isDefined(err);
           assert.equal(err, 'Error: Cannot open wallet dump file');
@@ -530,7 +530,7 @@ describe('Qweb3', () => {
       });
 
       it('import the wallet from a wallet dump file', async () => {
-        const res = await qweb3.importWallet(path.join(__dirname, '../../test/data/backup.dat'));
+        const res = await hweb3.importWallet(path.join(__dirname, '../../test/data/backup.dat'));
         assert.notTypeOf(res, 'Error');
       });
     });
