@@ -1,18 +1,18 @@
-# web3-tools
-web3-tools is a library for dApps to interract with the Htmlcoin blockchain. web3-tools communicates to a Htmlcoin node via the provider provided.
+# web3-kit
+web3-kit is a library for dApps to interract with the Htmlcoin blockchain. web3-kit communicates to a Htmlcoin node via the provider provided.
 
 ## Get Started
 Run the following in your project folder:
 
-	npm install web3-tools --save
+	npm install web3-kit --save
 
 ## Web Dapp Usage
-This is example is meant for web dapps who would like to use web3-tools's convenience methods with HtmlcoinChrome's RPC provider. HtmlcoinChrome is a Htmlcoin wallet [Chrome extension](). More details about HtmlcoinChrome [here](https://github.com/denuoweb/htmlcoin-chrome-wallet).
+This is example is meant for web dapps who would like to use web3-kit's convenience methods with HtmlcoinChrome's RPC provider. HtmlcoinChrome is a Htmlcoin wallet [Chrome extension](). More details about HtmlcoinChrome [here](https://github.com/denuoweb/htmlcoin-chrome-wallet).
 
-### 1. Construct web3-tools instance
-If you have HtmlcoinChrome installed, you will have a `window.htmlcoinchrome` object injected in your browser tab. Pass that into web3-tools as a parameter to set the provider.
+### 1. Construct web3-kit instance
+If you have HtmlcoinChrome installed, you will have a `window.htmlcoinchrome` object injected in your browser tab. Pass that into web3-kit as a parameter to set the provider.
 ```
-const web3-tools = new web3-tools(window.htmlcoinchrome.rpcProvider);
+const web3-kit = new web3-kit(window.htmlcoinchrome.rpcProvider);
 ```
 
 ### 2. Construct Contract instance
@@ -21,8 +21,8 @@ The Contract class is meant for executing `sendtocontract` or `callcontract` at 
 const contractAddress = 'f7b958eac2bdaca0f225b86d162f263441d23c19';
 const contractAbi = [{"constant":false,"inputs":[{"name":"_eventAddress","type":"address"},{"name":"_eventName","type":"bytes32[10]"},{"name":"_eventResultNames","type":"bytes32[10]"},{"name":"_numOfResults","type":"uint8"},{"name":"_lastResultIndex","type":"uint8"},{"name":"_arbitrationEndBlock","type":"uint256"},{"name":"_consensusThreshold","type":"uint256"}],"name":"createDecentralizedOracle","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_eventAddress","type":"address"},{"name":"_eventName","type":"bytes32[10]"},{"name":"_eventResultNames","type":"bytes32[10]"},{"name":"_numOfResults","type":"uint8"},{"name":"_lastResultIndex","type":"uint8"},{"name":"_arbitrationEndBlock","type":"uint256"},{"name":"_consensusThreshold","type":"uint256"}],"name":"doesDecentralizedOracleExist","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_oracle","type":"address"},{"name":"_eventAddress","type":"address"},{"name":"_eventName","type":"bytes32[10]"},{"name":"_eventResultNames","type":"bytes32[10]"},{"name":"_numOfResults","type":"uint8"},{"name":"_bettingEndBlock","type":"uint256"},{"name":"_resultSettingEndBlock","type":"uint256"},{"name":"_consensusThreshold","type":"uint256"}],"name":"createCentralizedOracle","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_oracle","type":"address"},{"name":"_eventAddress","type":"address"},{"name":"_eventName","type":"bytes32[10]"},{"name":"_eventResultNames","type":"bytes32[10]"},{"name":"_numOfResults","type":"uint8"},{"name":"_bettingEndBlock","type":"uint256"},{"name":"_resultSettingEndBlock","type":"uint256"},{"name":"_consensusThreshold","type":"uint256"}],"name":"doesCentralizedOracleExist","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"oracles","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_addressManager","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_contractAddress","type":"address"},{"indexed":true,"name":"_oracle","type":"address"},{"indexed":true,"name":"_eventAddress","type":"address"},{"indexed":false,"name":"_name","type":"bytes32[10]"},{"indexed":false,"name":"_resultNames","type":"bytes32[10]"},{"indexed":false,"name":"_numOfResults","type":"uint8"},{"indexed":false,"name":"_bettingEndBlock","type":"uint256"},{"indexed":false,"name":"_resultSettingEndBlock","type":"uint256"},{"indexed":false,"name":"_consensusThreshold","type":"uint256"}],"name":"CentralizedOracleCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_contractAddress","type":"address"},{"indexed":true,"name":"_eventAddress","type":"address"},{"indexed":false,"name":"_name","type":"bytes32[10]"},{"indexed":false,"name":"_resultNames","type":"bytes32[10]"},{"indexed":false,"name":"_numOfResults","type":"uint8"},{"indexed":false,"name":"_lastResultIndex","type":"uint8"},{"indexed":false,"name":"_arbitrationEndBlock","type":"uint256"},{"indexed":false,"name":"_consensusThreshold","type":"uint256"}],"name":"DecentralizedOracleCreated","type":"event"}];
 
-// Create a new Contract instance and use the same provider as web3-tools
-const contract = web3-tools.Contract(contractAddress, contractAbi);
+// Create a new Contract instance and use the same provider as web3-kit
+const contract = web3-kit.Contract(contractAddress, contractAbi);
 ```
 
 ### 3. Get Logged In HtmlcoinChrome Account
@@ -62,36 +62,36 @@ const tx = await contract.send('setResult', {
 // tx = txid of the transaction
 ```
 
-## web3-toolsProvider
-The provider is the link between web3-tools and the blockchain. A compatible web3-tools Provider adheres to the following interface:
+## web3-kitProvider
+The provider is the link between web3-kit and the blockchain. A compatible web3-kit Provider adheres to the following interface:
 ```
-interface web3-toolsProvider: {
+interface web3-kitProvider: {
   rawCall: (method: string, args: any[]) => Promise; // returns the result of the request
 }
 ```
 
-## web3-tools
-Instantiate a new instance of `web3-tools`: 
+## web3-kit
+Instantiate a new instance of `web3-kit`: 
 ```
-const { web3-tools } = require('web3-tools');
+const { web3-kit } = require('web3-kit');
 
-// Instantiate web3-tools with HttpProvider
+// Instantiate web3-kit with HttpProvider
 // Pass in the URL of your Htmlcoin node RPC port with auth credentials.
 // Default Htmlcoin RPC ports: testnet=14889 mainnet=4889
-const web3-tools = new web3-tools('http://htmlcoin:htmlcoin@localhost:14889');
+const web3-kit = new web3-kit('http://htmlcoin:htmlcoin@localhost:14889');
 
-// Instantiate web3-tools with HtmlcoinchromeRPCProvider
+// Instantiate web3-kit with HtmlcoinchromeRPCProvider
 // HtmlcoinchromeRPCProvider is a provider for the HtmlcoinChrome Wallet Extension.
 // Please note HtmlcoinchromeRPCProvider only allows the rawCall() method to be used.
 // It is specifically used for `sendtocontract` and `callcontract` only.
-const web3-tools = new web3-tools(window.htmlcoinchrome.rpcProvider);
+const web3-kit = new web3-kit(window.htmlcoinchrome.rpcProvider);
 ```
 
 ### isConnected()
 Checks if you are connected properly to the local htmlcoin node.
 ```
 async function isConnected() {
-  return await web3-tools.isConnected();
+  return await web3-kit.isConnected();
 }
 ```
 
@@ -99,7 +99,7 @@ async function isConnected() {
 Converts a Htmlcoin address to hex format.
 ```
 async function getHexAddress() {
-  return await web3-tools.getHexAddress('hKjn4fStBaAtwGiwueJf9qFxgpbAvf1xAy');
+  return await web3-kit.getHexAddress('hKjn4fStBaAtwGiwueJf9qFxgpbAvf1xAy');
 }
 ```
 
@@ -107,7 +107,7 @@ async function getHexAddress() {
 Converts a hex address to Htmlcoin format.
 ```
 async function fromHexAddress() {
-  return await web3-tools.fromHexAddress('17e7888aa7412a735f336d2f6d784caefabb6fa3');
+  return await web3-kit.fromHexAddress('17e7888aa7412a735f336d2f6d784caefabb6fa3');
 }
 ```
 
@@ -115,7 +115,7 @@ async function fromHexAddress() {
 Gets the current block height of your local Htmlcoin node.
 ```
 async function getBlockCount() {
-  return await web3-tools.getBlockCount();
+  return await web3-kit.getBlockCount();
 }
 ```
 
@@ -127,7 +127,7 @@ async function getTransaction(args) {
     transactionId, // string
   } = args;
 
-  return await web3-tools.getTransactionReceipt(transactionId);
+  return await web3-kit.getTransactionReceipt(transactionId);
 }
 ```
 
@@ -139,7 +139,7 @@ async function getTransactionReceipt(args) {
     transactionId, // string
   } = args;
 
-  return await web3-tools.getTransactionReceipt(transactionId);
+  return await web3-kit.getTransactionReceipt(transactionId);
 }
 ```
 
@@ -147,7 +147,7 @@ async function getTransactionReceipt(args) {
 Gets the unspent outputs that can be used.
 ```
 async function listUnspent() {
-  return await web3-tools.listUnspent();
+  return await web3-kit.listUnspent();
 }
 ```
 
@@ -189,16 +189,16 @@ async function(args) {
   }
 
   // removeHexPrefix = true removes the '0x' hex prefix from all hex values
-  return await web3-tools.searchLogs(fromBlock, toBlock, addresses, topics, contractMetadata, true);
+  return await web3-kit.searchLogs(fromBlock, toBlock, addresses, topics, contractMetadata, true);
 }
 ```
 
 ## Contract.js
 Instantiate a new instance of `Contract`: 
 ```
-const { web3-tools } = require('web3-tools');
+const { web3-kit } = require('web3-kit');
 
-const web3-tools = new web3-tools('http://htmlcoin:htmlcoin@localhost:14889');
+const web3-kit = new web3-kit('http://htmlcoin:htmlcoin@localhost:14889');
 
 // contractAddress = The address of your contract deployed on the blockchain
 const contractAddress = 'f7b958eac2bdaca0f225b86d162f263441d23c19';
@@ -206,8 +206,8 @@ const contractAddress = 'f7b958eac2bdaca0f225b86d162f263441d23c19';
 // contractAbi = The ABI of the contract
 const contractAbi = [{"constant":false,"inputs":[{"name":"_eventAddress","type":"address"},{"name":"_eventName","type":"bytes32[10]"},{"name":"_eventResultNames","type":"bytes32[10]"},{"name":"_numOfResults","type":"uint8"},{"name":"_lastResultIndex","type":"uint8"},{"name":"_arbitrationEndBlock","type":"uint256"},{"name":"_consensusThreshold","type":"uint256"}],"name":"createDecentralizedOracle","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_eventAddress","type":"address"},{"name":"_eventName","type":"bytes32[10]"},{"name":"_eventResultNames","type":"bytes32[10]"},{"name":"_numOfResults","type":"uint8"},{"name":"_lastResultIndex","type":"uint8"},{"name":"_arbitrationEndBlock","type":"uint256"},{"name":"_consensusThreshold","type":"uint256"}],"name":"doesDecentralizedOracleExist","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_oracle","type":"address"},{"name":"_eventAddress","type":"address"},{"name":"_eventName","type":"bytes32[10]"},{"name":"_eventResultNames","type":"bytes32[10]"},{"name":"_numOfResults","type":"uint8"},{"name":"_bettingEndBlock","type":"uint256"},{"name":"_resultSettingEndBlock","type":"uint256"},{"name":"_consensusThreshold","type":"uint256"}],"name":"createCentralizedOracle","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_oracle","type":"address"},{"name":"_eventAddress","type":"address"},{"name":"_eventName","type":"bytes32[10]"},{"name":"_eventResultNames","type":"bytes32[10]"},{"name":"_numOfResults","type":"uint8"},{"name":"_bettingEndBlock","type":"uint256"},{"name":"_resultSettingEndBlock","type":"uint256"},{"name":"_consensusThreshold","type":"uint256"}],"name":"doesCentralizedOracleExist","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"oracles","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_addressManager","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_contractAddress","type":"address"},{"indexed":true,"name":"_oracle","type":"address"},{"indexed":true,"name":"_eventAddress","type":"address"},{"indexed":false,"name":"_name","type":"bytes32[10]"},{"indexed":false,"name":"_resultNames","type":"bytes32[10]"},{"indexed":false,"name":"_numOfResults","type":"uint8"},{"indexed":false,"name":"_bettingEndBlock","type":"uint256"},{"indexed":false,"name":"_resultSettingEndBlock","type":"uint256"},{"indexed":false,"name":"_consensusThreshold","type":"uint256"}],"name":"CentralizedOracleCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_contractAddress","type":"address"},{"indexed":true,"name":"_eventAddress","type":"address"},{"indexed":false,"name":"_name","type":"bytes32[10]"},{"indexed":false,"name":"_resultNames","type":"bytes32[10]"},{"indexed":false,"name":"_numOfResults","type":"uint8"},{"indexed":false,"name":"_lastResultIndex","type":"uint8"},{"indexed":false,"name":"_arbitrationEndBlock","type":"uint256"},{"indexed":false,"name":"_consensusThreshold","type":"uint256"}],"name":"DecentralizedOracleCreated","type":"event"}];
 
-// Create a Contract instance from the web3-tools instance
-const contract = web3-tools.Contract(contractAddress, contractAbi);
+// Create a Contract instance from the web3-kit instance
+const contract = web3-kit.Contract(contractAddress, contractAbi);
 ```
 
 ### call(methodName, params)
@@ -245,48 +245,48 @@ async function exampleSend(args) {
 ```
 
 ## Encoder
-`Encoder` static functions are exposed in web3-tools instances.
+`Encoder` static functions are exposed in web3-kit instances.
 ```
-const { web3-tools } = require('web3-tools');
+const { web3-kit } = require('web3-kit');
 
-const web3-tools = new web3-tools('http://htmlcoin:htmlcoin@localhost:14889');
-web3-tools.encoder.objToHash(abiObj, isFunction);
-web3-tools.encoder.addressToHex(address);
-web3-tools.encoder.boolToHex(value);
-web3-tools.encoder.intToHex(num);
-web3-tools.encoder.uintToHex(num);
-web3-tools.encoder.stringToHex(string, maxCharLen);
-web3-tools.encoder.stringArrayToHex(strArray, numOfItems);
-web3-tools.encoder.padHexString(hexStr);
-web3-tools.encoder.constructData(abi, methodName, args);
+const web3-kit = new web3-kit('http://htmlcoin:htmlcoin@localhost:14889');
+web3-kit.encoder.objToHash(abiObj, isFunction);
+web3-kit.encoder.addressToHex(address);
+web3-kit.encoder.boolToHex(value);
+web3-kit.encoder.intToHex(num);
+web3-kit.encoder.uintToHex(num);
+web3-kit.encoder.stringToHex(string, maxCharLen);
+web3-kit.encoder.stringArrayToHex(strArray, numOfItems);
+web3-kit.encoder.padHexString(hexStr);
+web3-kit.encoder.constructData(abi, methodName, args);
 ```
 
 ## Decoder
-`Decoder` static functions are exposed in web3-tools instances.
+`Decoder` static functions are exposed in web3-kit instances.
 ```
-const { web3-tools } = require('web3-tools');
+const { web3-kit } = require('web3-kit');
 
-const web3-tools = new web3-tools('http://htmlcoin:htmlcoin@localhost:14889');
-web3-tools.decoder.toHtmlcoinAddress(hexAddress, isMainnet);
-web3-tools.decoder.removeHexPrefix(value);
-web3-tools.decoder.decodeSearchLog(rawOutput, contractMetadata, removeHexPrefix);
-web3-tools.decoder.decodeCall(rawOutput, contractABI, methodName, removeHexPrefix);
+const web3-kit = new web3-kit('http://htmlcoin:htmlcoin@localhost:14889');
+web3-kit.decoder.toHtmlcoinAddress(hexAddress, isMainnet);
+web3-kit.decoder.removeHexPrefix(value);
+web3-kit.decoder.decodeSearchLog(rawOutput, contractMetadata, removeHexPrefix);
+web3-kit.decoder.decodeCall(rawOutput, contractABI, methodName, removeHexPrefix);
 ```
 
 ## Utils
-`Utils` static functions are exposed in web3-tools instances.
+`Utils` static functions are exposed in web3-kit instances.
 ```
-const { web3-tools } = require('web3-tools');
+const { web3-kit } = require('web3-kit');
 
-const web3-tools = new web3-tools('http://htmlcoin:htmlcoin@localhost:14889');
-web3-tools.utils.paramsCheck(methodName, params, required, validators);
-web3-tools.utils.appendHexPrefix(value);
-web3-tools.utils.trimHexPrefix(str);
-web3-tools.utils.chunkString(str, length);
-web3-tools.utils.toUtf8(hex);
-web3-tools.utils.fromUtf8(str);
-web3-tools.utils.isJson(str);
-web3-tools.utils.isHtmlcoinAddress(address);
+const web3-kit = new web3-kit('http://htmlcoin:htmlcoin@localhost:14889');
+web3-kit.utils.paramsCheck(methodName, params, required, validators);
+web3-kit.utils.appendHexPrefix(value);
+web3-kit.utils.trimHexPrefix(str);
+web3-kit.utils.chunkString(str, length);
+web3-kit.utils.toUtf8(hex);
+web3-kit.utils.fromUtf8(str);
+web3-kit.utils.isJson(str);
+web3-kit.utils.isHtmlcoinAddress(address);
 ```
 
 ## Running Tests
