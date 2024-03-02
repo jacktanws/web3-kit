@@ -1,5 +1,5 @@
 {
-  "name": "web3-tools",
+  "name": "@ahmedueig/web3-tools",
   "version": "1.0.3",
   "description": "Htmlcoin JavaScript API comunicating to htmlcoin node over RPC",
   "main": "./src/index.js",
