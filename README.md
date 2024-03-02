@@ -1,8 +1,5 @@
-# web3-tools.js - Web3.js for Htmlcoin
-
+# web3-tools
 web3-tools is a library for dApps to interract with the Htmlcoin blockchain. web3-tools communicates to a Htmlcoin node via the provider provided.
-
-https://www.npmjs.com/package/web3-tools
 
 ## Get Started
 Run the following in your project folder:
