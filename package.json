@@ -1,15 +1,20 @@
 {
-  "name": "@ahmedueig/web3Kit",
+  "name": "@ahmedueig/web3-kit",
   "version": "1.6.3",
   "description": "Htmlcoin JavaScript API comunicating to htmlcoin node over RPC",
   "main": "./src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jacktanws/web3-tools.git"
+    "url": "https://github.com/jacktanws/web3-kit.git"
   },
   "license": "LGPL-3.0",
   "directories": {
     "lib": "./lib"
+  },
+  "author": "jacktanws",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "engines": {
     "node": ">=16",
@@ -46,19 +51,14 @@
       "pre-push": "npm run lint:fix"
     }
   },
-  "homepage": "https://github.com/jacktanws/web3-tools",
+  "homepage": "https://github.com/jacktanws/web3-kit",
   "bugs": {
-    "url": "https://github.com/jacktanws/web3-tools/issues"
+    "url": "https://github.com/jacktanws/web3-kit/issues"
   },
   "keywords": [
     "htmlcoin",
     "althash",
     "javascript",
     "jsonrpc"
-  ],
-  "author": "jacktanws",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  }
+  ]
 }
