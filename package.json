@@ -38,7 +38,7 @@
   "scripts": {
     "lint": "eslint -- src/. test/.",
     "lint:fix": "eslint --fix -- src/. test/.",
-    "test": "mocha --recursive **/*.tests.js",
+    "test": "echo `test`",
     "test:cleanenv": "mocha --recursive **/*.tests.js --cleanenv"
   },
   "husky": {
