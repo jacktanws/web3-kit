@@ -1,5 +1,5 @@
 {
-  "name": "@ahmedueig/web3-kit",
+  "name": "@jacktanws/web3-kit",
   "version": "1.6.3",
   "description": "Htmlcoin JavaScript API comunicating to htmlcoin node over RPC",
   "main": "./src/index.js",
